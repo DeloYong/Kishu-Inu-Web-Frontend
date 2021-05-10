@@ -30,6 +30,22 @@ var getJSON = function(url, callback) {
     };
     xhr.send();
 };
+
+document.addEventListener('DOMContentLoaded', (event) => {
+	getJSON('https://kishu-api.herokuapp.com/stats',
+	function(err, data) {
+	  if (err !== null) {
+	    console.log('Something went wrong: ' + err);
+	  } else {
+			var kishu_stats = data
+			console.log(kishu_stats)
+			document.getElementById("price").innerHTML = '$' + kishu_stats.kishuPriceUsdt.toFixed(10);
+			document.getElementById("marketcap").innerHTML = '$' + (kishu_stats.kishuPriceUsdt * 100000000000).toFixed(0) + ' Million';
+			document.getElementById("holders").innerHTML = (kishu_stats.holders / 1000).toFixed(0) + ',000+';
+	  }
+	});
+})
+
 </script>
 
 </head>
@@ -283,16 +299,6 @@ var getJSON = function(url, callback) {
 											<div class="col-lg-4 col-md-6">
 												<div class="token-sale-box">
 													<span class="token-sale-info" id="price">
-														<script>
-														getJSON('assets/json/stats.json',
-														function(err, stats) {
-															if (err !== null) {
-																alert('Error' + err);
-															} else {
-																document.getElementById("price").innerHTML = '$0.' + stats.price;
-															}
-														});
-									    			</script>
 													</span>
 													<span class="token-sale-title">CURRENT PRICE</span>
 												</div>
@@ -300,16 +306,6 @@ var getJSON = function(url, callback) {
 											<div class="col-lg-4 col-md-6">
 												<div class="token-sale-box">
 													<span class="token-sale-info" id="marketcap">
-														<script>
-														getJSON('assets/json/stats.json',
-														function(err, stats) {
-															if (err !== null) {
-																alert('Error' + err);
-															} else {
-																document.getElementById("marketcap").innerHTML = '$' + stats.marketcap + ' Million';
-															}
-														});
-									    			</script>
 													</span>
 													<span class="token-sale-title">MARKET CAP</span>
 												</div>
@@ -317,16 +313,6 @@ var getJSON = function(url, callback) {
 											<div class="col-lg-4 col-md-6">
 												<div class="token-sale-box">
 													<span class="token-sale-info" id="holders">
-														<script>
-														getJSON('assets/json/stats.json',
-														function(err, stats) {
-															if (err !== null) {
-																alert('Error' + err);
-															} else {
-																document.getElementById("holders").innerHTML = stats.holders + ',000+';
-															}
-														});
-									    			</script>
 													</span>
 													<span class="token-sale-title">HOLDERS</span>
 												</div>
